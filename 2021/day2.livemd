@@ -17,8 +17,6 @@ input = Kino.Input.textarea("Please paste your input:")
 <!-- livebook:{"reevaluate_automatically":true} -->
 
 ```elixir
-depth = position = 0
-
 input =
   input
   |> Kino.Input.read()
