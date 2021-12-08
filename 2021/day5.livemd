@@ -57,18 +57,11 @@ end
 
 ```elixir
 defmodule VentScanner do
-  def count_perpendicular_intersections(scan) do
+  def only_perpendicular(scan) do
     scan
     |> Enum.filter(fn {{start_x, start_y}, {end_x, end_y}} ->
       start_x == end_x or start_y == end_y
     end)
-    |> vent_points()
-    |> List.flatten()
-    |> Enum.frequencies()
-    |> Enum.filter(fn {_point, count} ->
-      count >= 2
-    end)
-    |> Enum.count()
   end
 
   def count_intersections(scan) do
@@ -81,6 +74,8 @@ defmodule VentScanner do
     end)
     |> Enum.count()
   end
+
+  ea
 
   def vent_points(scan) do
     scan
@@ -117,14 +112,16 @@ end
 scan =
   test_input
   |> Day5.InputParser.parse()
-  |> VentScanner.count_perpendicular_intersections()
+  |> VentScanner.only_perpendicular()
+  |> VentScanner.count_intersections()
 ```
 
 ```elixir
 scan =
   puzzle_input
   |> Day5.InputParser.parse()
-  |> VentScanner.count_perpendicular_intersections()
+  |> VentScanner.only_perpendicular()
+  |> VentScanner.count_intersections()
 ```
 
 ## Part 2
