@@ -137,3 +137,4 @@ scan =
   |> Day5.InputParser.parse()
   |> VentScanner.count_intersections()
 ```
+<!-- vim: syntax=markdown -->
