@@ -75,8 +75,6 @@ defmodule VentScanner do
     |> Enum.count()
   end
 
-  ea
-
   def vent_points(scan) do
     scan
     |> Enum.map(fn vent = {{start_x, start_y}, {end_x, end_y}} ->
