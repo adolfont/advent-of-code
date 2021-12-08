@@ -1,3 +1,5 @@
+<!-- vim: set syntax=markdown: -->
+
 # Advent of Code 2021 - Day 3
 
 ## Setup
@@ -192,4 +194,3 @@ end)
 gamma_digits = [1, 0, 1, 1, 0]
 gamma_digits |> Integer.undigits(2)
 ```
-<!-- vim: syntax=markdown -->
