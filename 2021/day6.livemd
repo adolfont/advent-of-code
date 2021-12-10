@@ -6,7 +6,8 @@
 
 ```elixir
 Mix.install([
-  {:kino, "~> 0.4.1"}
+  {:kino, "~> 0.4.1"},
+  {:vega_lite, "~> 0.1.1"}
 ])
 ```
 
@@ -143,4 +144,80 @@ TupleRecursion.recur(test_input, 0, 80) |> Tuple.sum()
 
 ```elixir
 TupleRecursion.recur(puzzle_input, 0, 256) |> Tuple.sum()
+```
+
+## Animation of growth
+
+Thanks to [this gist by Jonatan Klosko](https://gist.github.com/jonatanklosko/449485d2308a249c87c1f84c78a1a29c)!
+
+```elixir
+school_counts = Enum.frequencies(puzzle_input)
+
+age_counts =
+  0..8
+  |> Enum.map(fn age -> school_counts[age] || 0 end)
+  |> List.to_tuple()
+```
+
+```elixir
+alias VegaLite, as: Vl
+```
+
+```elixir
+graph =
+  Vl.new(height: 300, width: 764)
+  |> Vl.mark(:line)
+  |> Vl.encode_field(:x, "day", type: :quantitative)
+  |> Vl.encode_field(:y, "fish", type: :quantitative)
+  |> Kino.VegaLite.new()
+  |> Kino.render()
+
+Kino.VegaLite.periodically(
+  graph,
+  45,
+  {0, age_counts},
+  fn {day, {t0, t1, t2, t3, t4, t5, t6, t7, t8} = t} ->
+    count = Tuple.sum(t)
+    Kino.VegaLite.push(graph, %{day: day, fish: count})
+
+    if day < 256 do
+      t = {t1, t2, t3, t4, t5, t6, t7 + t0, t8, t0}
+      {:cont, {day + 1, t}}
+    else
+      :halt
+    end
+  end
+)
+```
+
+```elixir
+graph =
+  Vl.new(height: 300, width: 750)
+  |> Vl.mark(:bar)
+  |> Vl.encode_field(:x, "timer", type: :nominal, title: "fish age in days")
+  |> Vl.encode_field(:y, "count", type: :quantitative, title: "fish")
+  |> Kino.VegaLite.new()
+  |> Kino.render()
+
+Kino.VegaLite.periodically(
+  graph,
+  50,
+  {0, age_counts},
+  fn {day, {t0, t1, t2, t3, t4, t5, t6, t7, t8} = t} ->
+    histogram_points =
+      t
+      |> Tuple.to_list()
+      |> Enum.with_index()
+      |> Enum.map(fn {count, timer} -> %{count: count, timer: timer} end)
+
+    Kino.VegaLite.push_many(graph, histogram_points, window: length(histogram_points))
+
+    if day < 256 do
+      t = {t1, t2, t3, t4, t5, t6, t7 + t0, t8, t0}
+      {:cont, {day + 1, t}}
+    else
+      :halt
+    end
+  end
+)
 ```
