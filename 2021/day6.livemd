@@ -111,9 +111,8 @@ defmodule TupleRecursion do
     school_counts = Enum.frequencies(school)
 
     0..8
-    |> Enum.reduce({}, fn age, counts ->
-      Tuple.append(counts, Map.get(school_counts, age, 0))
-    end)
+    |> Enum.map(fn age -> school_counts[age] || 0 end)
+    |> List.to_tuple()
     |> recur(day + 1, days_to_model)
   end
 
@@ -133,6 +132,8 @@ end
 ```elixir
 TupleRecursion.recur(test_input, 0, 18) |> Tuple.sum()
 ```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
 
 ```elixir
 TupleRecursion.recur(test_input, 0, 80) |> Tuple.sum()
