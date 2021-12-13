@@ -1,3 +1,5 @@
+<!-- vim: set syntax=markdown: -->
+
 # Advent of Code 2021 - Day 10
 
 ## Setup
@@ -129,10 +131,6 @@ Parser.parse('((((')
 ```
 
 ## Part 1 - Test Input
-
-```elixir
-test_input
-```
 
 ```elixir
 test_input
