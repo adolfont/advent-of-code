@@ -1,0 +1,44 @@
+# Advent of Code 2021 - Day 12
+
+## Setup
+
+```elixir
+alias :digraph, as: Digraph
+```
+
+## Test Input 1
+
+```elixir
+test_input1 = """
+start-A
+start-b
+A-c
+A-b
+b-d
+A-end
+b-end
+"""
+```
+
+```elixir
+graph = Digraph.new()
+```
+
+```elixir
+cave_start = Digraph.add_vertex(graph, "start")
+cave_end = Digraph.add_vertex(graph, "end")
+cave_A = Digraph.add_vertex(graph, "A")
+cave_b = Digraph.add_vertex(graph, "b")
+cave_c = Digraph.add_vertex(graph, "c")
+cave_d = Digraph.add_vertex(graph, "d")
+
+Digraph.add_edge(graph, cave_start, cave_A)
+Digraph.add_edge(graph, cave_start, cave_b)
+Digraph.add_edge(graph, cave_A, cave_c)
+Digraph.add_edge(graph, cave_A, cave_b)
+Digraph.add_edge(graph, cave_b, cave_d)
+Digraph.add_edge(graph, cave_A, cave_end)
+Digraph.add_edge(graph, cave_b, cave_end)
+
+Digraph.get_path(graph, cave_start, cave_end)
+```
