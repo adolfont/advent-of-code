@@ -2,6 +2,9 @@
 
 # Advent of Code 2021 - Day 7
 
+[![Run in Livebook](https://livebook.dev/badge/v1/blue.svg)](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fsdball%2Fadvent-of-code%2Fblob%2Fmain%2F2021%2Fday7.livemd)
+
+
 ## Setup
 
 ```elixir
